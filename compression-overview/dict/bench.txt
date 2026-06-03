@@ -1,6 +1,6 @@
 goos: linux
 goarch: amd64
-pkg: blog/demo/compression/dict
+pkg: blog-examples/compression-overview/dict
 cpu: 12th Gen Intel(R) Core(TM) i5-12500
 BenchmarkCompress/dict=nodict/lib=zstd/level=1         	     452	   5289633 ns/op	 207.13 MB/s	    348311 comp_bytes	         3.146 ratio	    1436 B/op	       0 allocs/op
 BenchmarkCompress/dict=nodict/lib=zstd/level=1         	     453	   5285910 ns/op	 207.27 MB/s	    348311 comp_bytes	         3.146 ratio	    1433 B/op	       0 allocs/op
@@ -471,4 +471,4 @@ BenchmarkCompress/dict=zstd.dict.bin/lib=brotli/level=11         	       2	18176
 BenchmarkCompress/dict=zstd.dict.bin/lib=brotli/level=11         	       2	1817444205 ns/op	   0.60 MB/s	    163775 comp_bytes	         6.690 ratio	  948816 B/op	    7649 allocs/op
 BenchmarkCompress/dict=zstd.dict.bin/lib=brotli/level=11         	       2	1817782940 ns/op	   0.60 MB/s	    163775 comp_bytes	         6.690 ratio	  948816 B/op	    7649 allocs/op
 PASS
-ok  	blog/demo/compression/dict	1117.653s
+ok  	blog-examples/compression-overview/dict	1117.653s

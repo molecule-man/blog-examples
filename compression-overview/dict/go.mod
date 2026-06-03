@@ -1,4 +1,4 @@
-module blog/demo/compression/dict
+module blog-examples/compression-overview/dict
 
 go 1.26.2
 

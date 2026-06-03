@@ -1,4 +1,4 @@
-module blog/demo/compression/dynamic
+module blog-examples/compression-overview/dynamic
 
 go 1.26.2
 
