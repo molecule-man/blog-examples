@@ -1,0 +1,30 @@
+goos: linux
+goarch: amd64
+pkg: idivq
+cpu: AMD Ryzen 5 7535HS with Radeon Graphics        
+BenchmarkDiv/div=idivq         	478789798	         2.494 ns/op
+BenchmarkDiv/div=idivq         	481871257	         2.490 ns/op
+BenchmarkDiv/div=idivq         	482007243	         2.488 ns/op
+BenchmarkDiv/div=idivq         	482461702	         2.488 ns/op
+BenchmarkDiv/div=idivq         	482193770	         2.488 ns/op
+BenchmarkDiv/div=idivq         	481917620	         2.490 ns/op
+BenchmarkDiv/div=float         	546296713	         2.196 ns/op
+BenchmarkDiv/div=float         	542303301	         2.195 ns/op
+BenchmarkDiv/div=float         	544517774	         2.194 ns/op
+BenchmarkDiv/div=float         	545800615	         2.200 ns/op
+BenchmarkDiv/div=float         	549058261	         2.194 ns/op
+BenchmarkDiv/div=float         	538947375	         2.203 ns/op
+BenchmarkDivInline/div=idivq   	550690504	         2.179 ns/op
+BenchmarkDivInline/div=idivq   	550466989	         2.179 ns/op
+BenchmarkDivInline/div=idivq   	550694217	         2.178 ns/op
+BenchmarkDivInline/div=idivq   	551303251	         2.178 ns/op
+BenchmarkDivInline/div=idivq   	550632811	         2.177 ns/op
+BenchmarkDivInline/div=idivq   	551239408	         2.176 ns/op
+BenchmarkDivInline/div=float   	613220894	         1.958 ns/op
+BenchmarkDivInline/div=float   	613468726	         1.958 ns/op
+BenchmarkDivInline/div=float   	612510702	         1.958 ns/op
+BenchmarkDivInline/div=float   	612528172	         1.959 ns/op
+BenchmarkDivInline/div=float   	610725354	         1.961 ns/op
+BenchmarkDivInline/div=float   	612112724	         1.961 ns/op
+PASS
+ok  	idivq	28.782s
