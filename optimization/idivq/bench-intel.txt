@@ -1,0 +1,30 @@
+goos: linux
+goarch: amd64
+pkg: idivq
+cpu: 12th Gen Intel(R) Core(TM) i5-12500
+BenchmarkDiv/div=idivq         	356637474	         3.363 ns/op
+BenchmarkDiv/div=idivq         	356617428	         3.364 ns/op
+BenchmarkDiv/div=idivq         	355799018	         3.365 ns/op
+BenchmarkDiv/div=idivq         	356942755	         3.362 ns/op
+BenchmarkDiv/div=idivq         	356593345	         3.365 ns/op
+BenchmarkDiv/div=idivq         	356614550	         3.363 ns/op
+BenchmarkDiv/div=float         	484579552	         2.497 ns/op
+BenchmarkDiv/div=float         	481070269	         2.489 ns/op
+BenchmarkDiv/div=float         	482928594	         2.483 ns/op
+BenchmarkDiv/div=float         	481031191	         2.488 ns/op
+BenchmarkDiv/div=float         	483126184	         2.488 ns/op
+BenchmarkDiv/div=float         	483025288	         2.487 ns/op
+BenchmarkDivInline/div=idivq   	357167169	         3.359 ns/op
+BenchmarkDivInline/div=idivq   	357356037	         3.358 ns/op
+BenchmarkDivInline/div=idivq   	357610554	         3.358 ns/op
+BenchmarkDivInline/div=idivq   	357458280	         3.358 ns/op
+BenchmarkDivInline/div=idivq   	357226804	         3.358 ns/op
+BenchmarkDivInline/div=idivq   	357419908	         3.358 ns/op
+BenchmarkDivInline/div=float   	493753802	         2.414 ns/op
+BenchmarkDivInline/div=float   	496690640	         2.415 ns/op
+BenchmarkDivInline/div=float   	498395253	         2.409 ns/op
+BenchmarkDivInline/div=float   	497385997	         2.406 ns/op
+BenchmarkDivInline/div=float   	497630467	         2.417 ns/op
+BenchmarkDivInline/div=float   	496043338	         2.419 ns/op
+PASS
+ok  	idivq	28.799s
