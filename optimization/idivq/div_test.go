@@ -1,11 +1,31 @@
 package divbench
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/bmkessler/fastdiv"
+)
 
 var strides = []int{4, 7, 13, 31, 64, 127, 200, 256}
 var divisors = [8]int{4, 7, 13, 31, 64, 127, 200, 256}
 
 var sink int
+
+var recipTable = func() [8]uint64 {
+	var t [8]uint64
+	for i, d := range divisors {
+		t[i] = (uint64(1)<<reciprocalShift + uint64(d) - 1) / uint64(d)
+	}
+	return t
+}()
+
+var fastInv = func() [8]fastdiv.Uint32 {
+	var t [8]fastdiv.Uint32
+	for i, d := range divisors {
+		t[i] = fastdiv.NewUint32(uint32(d))
+	}
+	return t
+}()
 
 //go:noinline
 func divInt(sum, stride int) int { return (256*sum + stride/2) / stride }
@@ -51,6 +71,25 @@ func BenchmarkDivInline(b *testing.B) {
 		}
 		sink = acc
 	})
+	b.Run("div=reciprocal", func(b *testing.B) {
+		acc, i := 0, 0
+		for b.Loop() {
+			stride := divisors[i&7]
+			acc += int((uint64(256*(i&0xffff)+stride/2) * recipTable[i&7]) >> reciprocalShift)
+			i++
+		}
+		sink = acc
+	})
+	b.Run("div=fastdiv", func(b *testing.B) {
+		acc, i := 0, 0
+		for b.Loop() {
+			stride := divisors[i&7]
+			n := uint32(256*(i&0xffff) + stride/2)
+			acc += int(fastInv[i&7].Div(n))
+			i++
+		}
+		sink = acc
+	})
 	b.Run("div=split", func(b *testing.B) {
 		accInt, accFloat, i := 0, 0, 0
 		for b.Loop() {
@@ -78,6 +117,58 @@ func BenchmarkDivInline(b *testing.B) {
 			i += 5
 		}
 		sink = accInt + accFloat
+	})
+	b.Run("div=idivq-u5", func(b *testing.B) {
+		a0, a1, i := 0, 0, 0
+		for b.Loop() {
+			s0, s1, s2, s3, s4 := divisors[i&7], divisors[(i+1)&7], divisors[(i+2)&7], divisors[(i+3)&7], divisors[(i+4)&7]
+			a0 += (256*(i&0xffff) + s0/2) / s0
+			a0 += (256*((i+1)&0xffff) + s1/2) / s1
+			a1 += (256*((i+2)&0xffff) + s2/2) / s2
+			a1 += (256*((i+3)&0xffff) + s3/2) / s3
+			a1 += (256*((i+4)&0xffff) + s4/2) / s4
+			i += 5
+		}
+		sink = a0 + a1
+	})
+	b.Run("div=float-u5", func(b *testing.B) {
+		a0, a1, i := 0, 0, 0
+		for b.Loop() {
+			s0, s1, s2, s3, s4 := divisors[i&7], divisors[(i+1)&7], divisors[(i+2)&7], divisors[(i+3)&7], divisors[(i+4)&7]
+			a0 += int(float64(256*(i&0xffff)+s0/2) / float64(s0))
+			a0 += int(float64(256*((i+1)&0xffff)+s1/2) / float64(s1))
+			a1 += int(float64(256*((i+2)&0xffff)+s2/2) / float64(s2))
+			a1 += int(float64(256*((i+3)&0xffff)+s3/2) / float64(s3))
+			a1 += int(float64(256*((i+4)&0xffff)+s4/2) / float64(s4))
+			i += 5
+		}
+		sink = a0 + a1
+	})
+	b.Run("div=reciprocal-u5", func(b *testing.B) {
+		a0, a1, i := 0, 0, 0
+		for b.Loop() {
+			s0, s1, s2, s3, s4 := divisors[i&7], divisors[(i+1)&7], divisors[(i+2)&7], divisors[(i+3)&7], divisors[(i+4)&7]
+			a0 += int((uint64(256*(i&0xffff)+s0/2) * recipTable[i&7]) >> reciprocalShift)
+			a0 += int((uint64(256*((i+1)&0xffff)+s1/2) * recipTable[(i+1)&7]) >> reciprocalShift)
+			a1 += int((uint64(256*((i+2)&0xffff)+s2/2) * recipTable[(i+2)&7]) >> reciprocalShift)
+			a1 += int((uint64(256*((i+3)&0xffff)+s3/2) * recipTable[(i+3)&7]) >> reciprocalShift)
+			a1 += int((uint64(256*((i+4)&0xffff)+s4/2) * recipTable[(i+4)&7]) >> reciprocalShift)
+			i += 5
+		}
+		sink = a0 + a1
+	})
+	b.Run("div=fastdiv-u5", func(b *testing.B) {
+		a0, a1, i := 0, 0, 0
+		for b.Loop() {
+			s0, s1, s2, s3, s4 := divisors[i&7], divisors[(i+1)&7], divisors[(i+2)&7], divisors[(i+3)&7], divisors[(i+4)&7]
+			a0 += int(fastInv[i&7].Div(uint32(256*(i&0xffff) + s0/2)))
+			a0 += int(fastInv[(i+1)&7].Div(uint32(256*((i+1)&0xffff) + s1/2)))
+			a1 += int(fastInv[(i+2)&7].Div(uint32(256*((i+2)&0xffff) + s2/2)))
+			a1 += int(fastInv[(i+3)&7].Div(uint32(256*((i+3)&0xffff) + s3/2)))
+			a1 += int(fastInv[(i+4)&7].Div(uint32(256*((i+4)&0xffff) + s4/2)))
+			i += 5
+		}
+		sink = a0 + a1
 	})
 }
 
