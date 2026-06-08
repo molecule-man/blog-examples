@@ -1,0 +1,30 @@
+goos: linux
+goarch: amd64
+pkg: idivq
+cpu: 12th Gen Intel(R) Core(TM) i5-12500
+BenchmarkDivInline/div=idivq         	356795344	         3.361 ns/op
+BenchmarkDivInline/div=idivq         	356915768	         3.361 ns/op
+BenchmarkDivInline/div=idivq         	357000732	         3.360 ns/op
+BenchmarkDivInline/div=idivq         	356958850	         3.361 ns/op
+BenchmarkDivInline/div=idivq         	357093878	         3.360 ns/op
+BenchmarkDivInline/div=idivq         	356935510	         3.361 ns/op
+BenchmarkDivInline/div=float         	490365069	         2.456 ns/op
+BenchmarkDivInline/div=float         	488118567	         2.463 ns/op
+BenchmarkDivInline/div=float         	487895362	         2.460 ns/op
+BenchmarkDivInline/div=float         	485407096	         2.464 ns/op
+BenchmarkDivInline/div=float         	489786792	         2.457 ns/op
+BenchmarkDivInline/div=float         	488505326	         2.460 ns/op
+BenchmarkDivInline/div=split         	306574341	         3.919 ns/op
+BenchmarkDivInline/div=split         	306348358	         3.920 ns/op
+BenchmarkDivInline/div=split         	304850059	         3.928 ns/op
+BenchmarkDivInline/div=split         	304970710	         3.927 ns/op
+BenchmarkDivInline/div=split         	306313677	         3.925 ns/op
+BenchmarkDivInline/div=split         	305917605	         3.927 ns/op
+BenchmarkDivInline/div=split-uneven  	144203535	         8.321 ns/op
+BenchmarkDivInline/div=split-uneven  	143948829	         8.339 ns/op
+BenchmarkDivInline/div=split-uneven  	143954712	         8.334 ns/op
+BenchmarkDivInline/div=split-uneven  	144016569	         8.334 ns/op
+BenchmarkDivInline/div=split-uneven  	143987469	         8.333 ns/op
+BenchmarkDivInline/div=split-uneven  	144027036	         8.333 ns/op
+PASS
+ok  	idivq	28.812s

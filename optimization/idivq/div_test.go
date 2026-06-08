@@ -51,6 +51,34 @@ func BenchmarkDivInline(b *testing.B) {
 		}
 		sink = acc
 	})
+	b.Run("div=split", func(b *testing.B) {
+		accInt, accFloat, i := 0, 0, 0
+		for b.Loop() {
+			s0 := divisors[i&7]
+			s1 := divisors[(i+1)&7]
+			accInt += (256*(i&0xffff) + s0/2) / s0                          // IDIVQ, port 1
+			accFloat += int(float64(256*((i+1)&0xffff)+s1/2) / float64(s1)) // DIVSD, port 0
+			i += 2
+		}
+		sink = accInt + accFloat
+	})
+	b.Run("div=split-uneven", func(b *testing.B) {
+		accInt, accFloat, i := 0, 0, 0
+		for b.Loop() {
+			s0 := divisors[i&7]
+			s1 := divisors[(i+1)&7]
+			s2 := divisors[(i+2)&7]
+			s3 := divisors[(i+3)&7]
+			s4 := divisors[(i+4)&7]
+			accInt += (256*(i&0xffff) + s0/2) / s0                          // IDIVQ
+			accInt += (256*((i+1)&0xffff) + s1/2) / s1                      // IDIVQ
+			accFloat += int(float64(256*((i+2)&0xffff)+s2/2) / float64(s2)) // DIVSD
+			accFloat += int(float64(256*((i+3)&0xffff)+s3/2) / float64(s3)) // DIVSD
+			accFloat += int(float64(256*((i+4)&0xffff)+s4/2) / float64(s4)) // DIVSD
+			i += 5
+		}
+		sink = accInt + accFloat
+	})
 }
 
 var fnum [256]float64
