@@ -1,0 +1,24 @@
+goos: linux
+goarch: amd64
+pkg: idivq
+cpu: 12th Gen Intel(R) Core(TM) i5-12500
+BenchmarkDivSameDivisor/div=idivq         	356554162	         3.362 ns/op
+BenchmarkDivSameDivisor/div=idivq         	356978598	         3.360 ns/op
+BenchmarkDivSameDivisor/div=idivq         	357131881	         3.360 ns/op
+BenchmarkDivSameDivisor/div=idivq         	356886164	         3.361 ns/op
+BenchmarkDivSameDivisor/div=idivq         	356993967	         3.361 ns/op
+BenchmarkDivSameDivisor/div=idivq         	357007735	         3.361 ns/op
+BenchmarkDivSameDivisor/div=float         	503779009	         2.385 ns/op
+BenchmarkDivSameDivisor/div=float         	502300359	         2.384 ns/op
+BenchmarkDivSameDivisor/div=float         	503604825	         2.385 ns/op
+BenchmarkDivSameDivisor/div=float         	501881091	         2.388 ns/op
+BenchmarkDivSameDivisor/div=float         	503952342	         2.381 ns/op
+BenchmarkDivSameDivisor/div=float         	502820527	         2.385 ns/op
+BenchmarkDivSameDivisor/div=reciprocal    	500874580	         2.396 ns/op
+BenchmarkDivSameDivisor/div=reciprocal    	501413710	         2.394 ns/op
+BenchmarkDivSameDivisor/div=reciprocal    	501648055	         2.392 ns/op
+BenchmarkDivSameDivisor/div=reciprocal    	502239078	         2.394 ns/op
+BenchmarkDivSameDivisor/div=reciprocal    	501331458	         2.393 ns/op
+BenchmarkDivSameDivisor/div=reciprocal    	501948597	         2.393 ns/op
+PASS
+ok  	idivq	21.604s
