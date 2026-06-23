@@ -1,3 +1,5 @@
+Code examples for [Optimization catalog: how 4 bytes of padding make array clearing 49% faster](https://blog.andr2i.com/posts/2026-06-22-optimization-catalog-how-4-bytes-of-padding-make-array-clearing-49-faster).
+
 ## Running the benchmarks
 
 ```sh
